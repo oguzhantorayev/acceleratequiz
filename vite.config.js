@@ -1,0 +1,22 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'pyodide': ['pyodide'],
+          'duckdb': ['duckdb']
+        }
+      }
+    }
+  },
+  server: {
+    port: 3004,
+    open: true
+  }
+})
