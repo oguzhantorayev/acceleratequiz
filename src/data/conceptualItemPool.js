@@ -7,81 +7,81 @@ export const conceptualItems = [
     id: "concept_01",
     domain: "data_literacy",
     difficulty: 1,
-    stem: "What is the primary purpose of data exploration in the early stages of analysis?",
+    stem: "You're analyzing customer purchase data for an e-commerce company. The dataset contains 50,000 transactions from the last quarter. What should be your first step when you receive this data?",
     type: "mcq",
     options: [
-      "To prove a hypothesis",
-      "To understand patterns and relationships in the data",
-      "To create visualizations",
-      "To clean the data",
+      "Immediately start building predictive models",
+      "Explore the data to understand its structure, quality, and patterns",
+      "Create visualizations right away",
+      "Export the data to Excel for easier analysis",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Data exploration helps analysts understand what the data contains before making any conclusions."
+    explanation: "Data exploration is crucial first step to understand data structure, identify quality issues, and discover patterns before any analysis or modeling."
   },
   {
     id: "concept_02",
     domain: "data_literacy",
     difficulty: 2,
-    stem: "When you discover outliers in your dataset, what should be your first approach?",
+    stem: "While analyzing sales data for a retail chain, you notice that one store has sales figures 300% higher than all other locations. The data shows consistent high sales across all months. What should you do first?",
     type: "mcq",
     options: [
-      "Remove them immediately",
-      "Investigate their cause and context",
-      "Replace them with the mean",
-      "Ignore them completely",
+      "Remove this store's data as it's clearly an error",
+      "Investigate the store's location, size, and business context to understand why it's performing differently",
+      "Replace the high values with the average of other stores",
+      "Assume it's a flagship store and continue with analysis",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Outliers might be errors or important insights - understanding their context is crucial."
+    explanation: "Outliers often represent important business insights. This could be a flagship store, tourist location, or have unique characteristics that explain the performance."
   },
   {
     id: "concept_03",
     domain: "data_literacy",
     difficulty: 1,
-    stem: "What does 'data quality' primarily refer to?",
+    stem: "You're working with a customer database for a subscription service. You notice that 15% of customer records have missing email addresses, some phone numbers are in different formats, and birth dates include impossible values like '1990-13-45'. What is the main issue here?",
     type: "mcq",
     options: [
-      "The size of the dataset",
-      "The accuracy, completeness, and reliability of data",
-      "The speed of data processing",
-      "The format of the data",
+      "The dataset is too small",
+      "Data quality problems including missing values, inconsistent formats, and invalid data",
+      "The data processing is too slow",
+      "The data format is incorrect",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Data quality encompasses accuracy, completeness, consistency, and reliability."
+    explanation: "This scenario shows classic data quality issues: missing values (emails), inconsistent formats (phone numbers), and invalid data (impossible dates)."
   },
   {
     id: "concept_04",
     domain: "data_literacy",
     difficulty: 2,
-    stem: "What is the main difference between structured and unstructured data?",
+    stem: "A marketing team wants to analyze customer feedback. They have two data sources: (1) a CSV file with customer ratings (1-5) and purchase amounts, and (2) thousands of customer review comments like 'Great product, fast shipping!' and 'Terrible experience, will not buy again.' How would you categorize these data types?",
     type: "mcq",
     options: [
-      "Structured data is always larger",
-      "Structured data has a predefined format; unstructured data doesn't",
-      "Structured data is always more accurate",
-      "There is no difference",
+      "Both are structured data",
+      "CSV file is structured (predefined format), review comments are unstructured (free-form text)",
+      "Both are unstructured data",
+      "The CSV is unstructured, reviews are structured",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Structured data follows a schema (like databases), while unstructured data (like text) doesn't."
+    explanation: "Structured data has a predefined schema (CSV with specific columns), while unstructured data (review text) has no fixed format and requires different analysis techniques."
   },
   {
     id: "concept_05",
     domain: "data_literacy",
     difficulty: 3,
-    stem: "What is the primary risk of using data that was collected for a different purpose?",
+    stem: "A healthcare company wants to analyze patient satisfaction using data from their appointment booking system. The booking system was designed to track appointment scheduling, not patient satisfaction. What is the main concern with using this data?",
     type: "mcq",
     options: [
-      "It will be too large to process",
-      "It may not be suitable for your research question",
-      "It will be too expensive",
-      "It will be outdated",
+      "The data will be too large to analyze",
+      "The data may not capture what you need to measure (satisfaction) and could be biased toward certain patient types",
+      "The data will be too expensive to access",
+      "The data will be outdated",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Data collected for one purpose may have biases or limitations that make it inappropriate for other uses."
+    explanation: "Data collected for one purpose (scheduling) may not be suitable for another (satisfaction analysis) and could have systematic biases that affect your conclusions."
   },
   {
     id: "concept_06",
@@ -170,65 +170,65 @@ export const conceptualItems = [
     id: "concept_11",
     domain: "stats",
     difficulty: 1,
-    stem: "What does the mean tell you about a dataset?",
+    stem: "You're analyzing the salaries of 100 employees at a tech company. The salaries range from $40,000 to $200,000, with most employees earning between $60,000-$80,000. What does the mean salary tell you?",
     type: "mcq",
     options: [
-      "The most common value",
-      "The average value",
-      "The middle value when sorted",
-      "The range of values",
+      "The most common salary amount",
+      "The average salary across all employees",
+      "The middle salary when sorted from lowest to highest",
+      "The difference between highest and lowest salary",
       "I don't know"
     ],
     correct: 1,
-    explanation: "The mean is the arithmetic average of all values in the dataset."
+    explanation: "The mean is the arithmetic average of all salaries, giving you the typical salary when all amounts are summed and divided by the number of employees."
   },
   {
     id: "concept_12",
     domain: "stats",
     difficulty: 2,
-    stem: "When would you use the median instead of the mean?",
+    stem: "You're analyzing household income in a neighborhood. Most families earn $50,000-$70,000, but there are a few families earning over $500,000. The mean income is $85,000, but the median is $62,000. Which measure better represents the typical family income?",
     type: "mcq",
     options: [
-      "When you have a small dataset",
-      "When your data has extreme outliers",
-      "When you have categorical data",
-      "When you need faster calculations",
+      "The mean, because it includes all values",
+      "The median, because it's not distorted by the few very high earners",
+      "Both are equally representative",
+      "Neither, you need more data",
       "I don't know"
     ],
     correct: 1,
-    explanation: "The median is less affected by outliers than the mean."
+    explanation: "The median is less affected by extreme outliers (high earners) and better represents the typical family income in this scenario."
   },
   {
     id: "concept_13",
     domain: "stats",
     difficulty: 1,
-    stem: "What does standard deviation measure?",
+    stem: "You're comparing two sales teams. Team A has consistent monthly sales between $45,000-$55,000. Team B's sales vary widely from $20,000 to $80,000. Both teams average $50,000. What statistic would best capture this difference in consistency?",
     type: "mcq",
     options: [
-      "The average value",
-      "How spread out the data points are",
-      "The most common value",
-      "The range of the data",
+      "The mean sales amount",
+      "Standard deviation, which measures how spread out the sales numbers are",
+      "The highest sales amount",
+      "The total sales amount",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Standard deviation measures the average distance of data points from the mean."
+    explanation: "Standard deviation measures the spread or variability of data points around the mean, showing how consistent (low deviation) or variable (high deviation) the sales are."
   },
   {
     id: "concept_14",
     domain: "stats",
     difficulty: 2,
-    stem: "What is the difference between correlation and causation?",
+    stem: "A study finds a strong correlation between ice cream sales and drowning incidents. Both increase during summer months. A news headline claims 'Ice cream causes drowning!' What's the real issue here?",
     type: "mcq",
     options: [
-      "They are the same thing",
-      "Correlation shows relationship; causation shows one causes the other",
-      "Correlation is stronger than causation",
-      "Causation is easier to prove",
+      "The correlation is wrong",
+      "This confuses correlation (both related to summer) with causation (ice cream causing drowning)",
+      "The data is unreliable",
+      "The study sample was too small",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Correlation indicates a relationship; causation means one variable directly causes another."
+    explanation: "This is a classic example of confusing correlation with causation. Both ice cream sales and drowning increase in summer due to weather, not because one causes the other."
   },
   {
     id: "concept_15",
@@ -333,65 +333,65 @@ export const conceptualItems = [
     id: "concept_21",
     domain: "analysis",
     difficulty: 1,
-    stem: "What is the first step in any data analysis project?",
+    stem: "A restaurant chain wants to understand why some locations are more profitable than others. They've given you access to their sales data, customer demographics, and location information. What should you do first?",
     type: "mcq",
     options: [
-      "Create visualizations",
-      "Define the problem and objectives",
-      "Clean the data",
-      "Run statistical tests",
+      "Start creating charts and graphs immediately",
+      "Clearly define what 'profitable' means and what specific questions you're trying to answer",
+      "Begin cleaning the data right away",
+      "Run statistical tests on the raw data",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Clearly defining the problem and objectives guides all subsequent analysis steps."
+    explanation: "Before any analysis, you need to clearly define the problem: what makes a location 'profitable', what factors to investigate, and what decisions this analysis will inform."
   },
   {
     id: "concept_22",
     domain: "analysis",
     difficulty: 2,
-    stem: "What is the purpose of exploratory data analysis (EDA)?",
+    stem: "You're analyzing customer churn data for a subscription service. You have 6 months of data showing customer sign-ups, usage patterns, and cancellations. What should be your approach to understand why customers are leaving?",
     type: "mcq",
     options: [
-      "To prove hypotheses",
-      "To understand data patterns and generate hypotheses",
-      "To create final reports",
-      "To clean data",
+      "Immediately build a predictive model",
+      "Start with exploratory analysis to understand patterns in the data and generate hypotheses about churn factors",
+      "Create a final report with conclusions",
+      "Clean all the data first",
       "I don't know"
     ],
     correct: 1,
-    explanation: "EDA helps understand data characteristics and identify patterns that might lead to hypotheses."
+    explanation: "EDA helps you understand the data structure, identify patterns, and generate hypotheses about what might be causing churn before building models or drawing conclusions."
   },
   {
     id: "concept_23",
     domain: "analysis",
     difficulty: 3,
-    stem: "What is the difference between supervised and unsupervised learning?",
+    stem: "A bank wants to improve their fraud detection. They have two approaches: (1) Train a model using historical data where each transaction is labeled as 'fraud' or 'legitimate', and (2) Analyze transaction patterns to find unusual clusters without knowing which are fraudulent. Which approach is which?",
     type: "mcq",
     options: [
-      "Supervised is faster",
-      "Supervised uses labeled data; unsupervised finds patterns without labels",
-      "Unsupervised is more accurate",
-      "There is no difference",
+      "Both are supervised learning",
+      "Approach 1 is supervised (uses labeled data), Approach 2 is unsupervised (finds patterns without labels)",
+      "Both are unsupervised learning",
+      "Approach 1 is unsupervised, Approach 2 is supervised",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Supervised learning uses known outcomes to train models; unsupervised learning finds hidden patterns."
+    explanation: "Supervised learning uses labeled data (fraud/legitimate), while unsupervised learning finds patterns in data without knowing the correct answers."
   },
   {
     id: "concept_24",
     domain: "analysis",
     difficulty: 2,
-    stem: "What is overfitting in data analysis?",
+    stem: "You've built a model to predict house prices using 1000 historical sales. The model achieves 98% accuracy on the training data but only 65% accuracy on new house sales. What's happening?",
     type: "mcq",
     options: [
-      "When models are too simple",
-      "When models perform well on training data but poorly on new data",
-      "When data is too large",
-      "When analysis takes too long",
+      "The model is too simple",
+      "The model is overfitting - it memorized the training data but can't generalize to new data",
+      "The training data is too large",
+      "The analysis is taking too long",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Overfitting occurs when a model learns training data too well and fails to generalize."
+    explanation: "This is classic overfitting - the model learned the training data too well (98% accuracy) but can't generalize to new, unseen data (65% accuracy)."
   },
   {
     id: "concept_25",
@@ -496,33 +496,33 @@ export const conceptualItems = [
     id: "concept_31",
     domain: "viz",
     difficulty: 1,
-    stem: "What is the primary purpose of data visualization?",
+    stem: "You've analyzed quarterly sales data and discovered that Q4 sales are consistently 40% higher than other quarters. You need to present this finding to the executive team. What's the best approach?",
     type: "mcq",
     options: [
-      "To make data look pretty",
-      "To communicate insights and patterns effectively",
-      "To reduce data size",
-      "To speed up analysis",
+      "Create the most colorful chart possible",
+      "Use clear, simple visualizations that effectively communicate the seasonal pattern and its business implications",
+      "Compress the data to save space",
+      "Skip visualization and just show the numbers",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Visualization helps communicate data insights and patterns to audiences effectively."
+    explanation: "The primary purpose of data visualization is to communicate insights clearly and effectively to your audience, helping them understand patterns and make decisions."
   },
   {
     id: "concept_32",
     domain: "viz",
     difficulty: 2,
-    stem: "When should you use a bar chart versus a line chart?",
+    stem: "You need to present data to show: (1) Sales by product category for this month, and (2) Monthly sales trends over the past year. Which chart types should you use?",
     type: "mcq",
     options: [
-      "Bar charts are always better",
-      "Bar charts for categories; line charts for trends over time",
-      "Line charts are always better",
-      "It doesn't matter",
+      "Line charts for both",
+      "Bar chart for product categories (comparing categories), line chart for monthly trends (showing change over time)",
+      "Bar charts for both",
+      "Pie charts for both",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Bar charts compare categories; line charts show trends and changes over time."
+    explanation: "Bar charts are best for comparing categories (product sales), while line charts effectively show trends and changes over time (monthly sales progression)."
   },
   {
     id: "concept_33",
@@ -659,17 +659,17 @@ export const conceptualItems = [
     id: "concept_41",
     domain: "ethics",
     difficulty: 1,
-    stem: "What is personally identifiable information (PII)?",
+    stem: "A healthcare app collects user data including names, email addresses, birth dates, and health symptoms. The company wants to share this data with researchers. Which of these would be considered personally identifiable information (PII)?",
     type: "mcq",
     options: [
-      "Any data about people",
-      "Information that can identify a specific individual",
+      "Only the health symptoms",
+      "Names, email addresses, and birth dates - information that can identify specific individuals",
       "Only names and addresses",
-      "Only financial data",
+      "Only financial information",
       "I don't know"
     ],
     correct: 1,
-    explanation: "PII is any information that can be used to identify a specific individual."
+    explanation: "PII includes any information that can be used to identify a specific individual, such as names, email addresses, and birth dates. Health symptoms alone might not be identifiable."
   },
   {
     id: "concept_42",
@@ -691,17 +691,17 @@ export const conceptualItems = [
     id: "concept_43",
     domain: "ethics",
     difficulty: 3,
-    stem: "What is algorithmic bias?",
+    stem: "A company uses an AI system to screen job applications. The system was trained on historical hiring data and consistently rejects applications from certain demographic groups, even when they're qualified. What is this an example of?",
     type: "mcq",
     options: [
-      "When algorithms are too slow",
-      "When algorithms produce systematically prejudiced results",
-      "When algorithms use too much memory",
-      "When algorithms are too complex",
+      "The algorithm is too slow",
+      "Algorithmic bias - the system learned and perpetuates unfair discrimination from historical data",
+      "The algorithm uses too much memory",
+      "The algorithm is too complex",
       "I don't know"
     ],
     correct: 1,
-    explanation: "Algorithmic bias occurs when systems produce systematically unfair or prejudiced outcomes."
+    explanation: "This is algorithmic bias - the AI system learned discriminatory patterns from historical hiring data and now systematically produces unfair outcomes for certain groups."
   },
   {
     id: "concept_44",

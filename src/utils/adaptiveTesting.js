@@ -81,7 +81,11 @@ export class AdaptiveTestingEngine {
       confidence: response.confidence,
       timeMs: responseTime,
       correct: this.evaluateResponse(currentItem, response.answer),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      // Add question details for Sheet4
+      questionText: currentItem.stem,
+      options: currentItem.options || [],
+      type: currentItem.type
     };
     
     console.log('Processing response:', responseData);

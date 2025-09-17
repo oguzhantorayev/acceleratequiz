@@ -3,7 +3,8 @@
 class Sheet3Service {
   constructor() {
     this.spreadsheetId = '1ISDR19yTMfeIy7-uopiVFd1Po_CyIclEtTyNYI2BPCg';
-    this.sheetName = 'Sheet3';
+    this.sheet3Name = 'Sheet3';
+    this.sheet4Name = 'Sheet4';
     this.accessToken = null;
     this.initialized = false;
   }
@@ -21,7 +22,7 @@ class Sheet3Service {
   }
 
   async getAccessToken() {
-    // Load credentials from environment variables
+    // Use environment variables for both local and Vercel deployment
     const credentials = {
       "type": "service_account",
       "project_id": import.meta.env.VITE_GOOGLE_PROJECT_ID || "",
@@ -35,16 +36,17 @@ class Sheet3Service {
       "client_x509_cert_url": import.meta.env.VITE_GOOGLE_CLIENT_X509_CERT_URL || ""
     };
 
+    // Check if we have the minimum required credentials
     if (!credentials.private_key || !credentials.client_email || !credentials.project_id) {
-      console.warn('Google Cloud credentials not found. Sheet3 submission will be skipped.');
-      console.warn('To enable Sheet3 submission, set the following environment variables:');
+      console.warn('Google Cloud credentials not found. Sheet3/Sheet4 submission will be skipped.');
+      console.warn('To enable Google Sheets submission, set the following environment variables:');
       console.warn('- VITE_GOOGLE_PROJECT_ID');
       console.warn('- VITE_GOOGLE_PRIVATE_KEY');
       console.warn('- VITE_GOOGLE_CLIENT_EMAIL');
       console.warn('- VITE_GOOGLE_PRIVATE_KEY_ID');
       console.warn('- VITE_GOOGLE_CLIENT_ID');
       console.warn('- VITE_GOOGLE_CLIENT_X509_CERT_URL');
-      throw new Error('Google Cloud credentials not configured. Sheet3 submission disabled.');
+      throw new Error('Google Cloud credentials not configured. Google Sheets submission disabled.');
     }
 
     const jwt = await this.createJWT(credentials);
@@ -159,8 +161,8 @@ class Sheet3Service {
       console.log('Sheet3 Service - Responses:', responses);
       console.log('Sheet3 Service - Converting 0-based indices to 1-based selection numbers...');
       
-      // Create one row with all specific answers
-      const rowData = [
+      // Create one row with all specific answers for Sheet3 (1-5 format)
+      const sheet3RowData = [
         new Date().toISOString(), // Timestamp
         studentData.name || 'Anonymous',
         studentData.email || 'No email provided',
@@ -178,46 +180,85 @@ class Sheet3Service {
           return response.response;
         })
       ];
+
+      // Create one row with actual question strings for Sheet4
+      const sheet4RowData = [
+        new Date().toISOString(), // Timestamp
+        studentData.name || 'Anonymous',
+        studentData.email || 'No email provided',
+        // All specific answers with actual question strings
+        ...responses.map(response => {
+          // Get the actual question text and selected option
+          const questionText = response.questionText || 'Question not available';
+          let selectedAnswer = '';
+          
+          if (typeof response.response === 'number') {
+            // For MCQ, get the actual option text
+            const optionIndex = response.response;
+            const options = response.options || [];
+            selectedAnswer = options[optionIndex] || `Option ${optionIndex + 1}`;
+          } else if (Array.isArray(response.response)) {
+            // For MSQ, get all selected option texts
+            const options = response.options || [];
+            selectedAnswer = response.response.map(index => options[index] || `Option ${index + 1}`).join('; ');
+          } else {
+            // For other types (code answers, etc.), return as-is
+            selectedAnswer = response.response;
+          }
+          
+          return `${questionText} | Answer: ${selectedAnswer}`;
+        })
+      ];
       
-      console.log('Sheet3 Service - Row data (with 1-based selection numbers):', rowData);
+      console.log('Sheet3 Service - Sheet3 Row data (with 1-based selection numbers):', sheet3RowData);
+      console.log('Sheet3 Service - Sheet4 Row data (with question strings):', sheet4RowData);
       console.log('Sheet3 Service - Sample converted responses:', responses.slice(0, 3).map(r => ({ 
         original: r.response, 
         converted: typeof r.response === 'number' ? r.response + 1 : 
                   Array.isArray(r.response) ? r.response.map(i => i + 1) : r.response 
       })));
 
-      // Append to Sheet3
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${this.sheetName}!A:${this.getColumnLetter(3 + responses.length)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
-      console.log('Sheet3 API URL:', url);
-      console.log('Sheet3 Request body:', JSON.stringify({ values: [rowData] }));
-      
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          values: [rowData]
-        })
-      });
+      // Submit to both sheets
+      const results = await Promise.all([
+        this.submitToSheet(this.sheet3Name, sheet3RowData, responses.length),
+        this.submitToSheet(this.sheet4Name, sheet4RowData, responses.length)
+      ]);
 
-      console.log('Sheet3 API Response status:', response.status);
-      console.log('Sheet3 API Response headers:', response.headers);
-
-      if (!response.ok) {
-        const errorData = await response.text();
-        console.error('Sheet3 API Error response:', errorData);
-        throw new Error(`Google Sheets API error: ${response.status} - ${errorData}`);
-      }
-
-      const result = await response.json();
-      console.log('Results appended to Sheet3:', result);
+      console.log('Results submitted to both sheets successfully');
       return true;
     } catch (error) {
       console.error('Error appending results to Sheet3:', error);
       throw error;
     }
+  }
+
+  async submitToSheet(sheetName, rowData, responseCount) {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.spreadsheetId}/values/${sheetName}!A:${this.getColumnLetter(3 + responseCount)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
+    console.log(`${sheetName} API URL:`, url);
+    console.log(`${sheetName} Request body:`, JSON.stringify({ values: [rowData] }));
+    
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        values: [rowData]
+      })
+    });
+
+    console.log(`${sheetName} API Response status:`, response.status);
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error(`${sheetName} API Error response:`, errorData);
+      throw new Error(`Google Sheets API error for ${sheetName}: ${response.status} - ${errorData}`);
+    }
+
+    const result = await response.json();
+    console.log(`Results appended to ${sheetName}:`, result);
+    return result;
   }
 
   getColumnLetter(columnNumber) {

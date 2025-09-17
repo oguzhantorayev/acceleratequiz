@@ -20,6 +20,9 @@ build/
 !package.json
 !package-lock.json
 
+# Environment variables
+.env
+
 # IDE
 .vscode/
 .idea/
