@@ -160,8 +160,12 @@ function App() {
         console.log('Number of Responses:', scoreReport.metadata?.responses?.length);
         
         try {
-          await sheet3Service.appendResults(studentData, scoreReport);
-          console.log('Results successfully submitted to Sheet3');
+          const submissionResult = await sheet3Service.appendResults(studentData, scoreReport);
+          if (submissionResult === false) {
+            console.log('Sheet3 submission skipped - credentials not configured');
+          } else {
+            console.log('Results successfully submitted to Sheet3');
+          }
         } catch (error) {
           console.error('Failed to submit to Sheet3:', error);
           console.error('Error details:', error.message);

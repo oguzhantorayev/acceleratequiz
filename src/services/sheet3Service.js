@@ -24,7 +24,7 @@ class Sheet3Service {
     // Load credentials from environment variables
     const credentials = {
       "type": "service_account",
-      "project_id": import.meta.env.VITE_GOOGLE_PROJECT_ID || "avian-silo-463905-e8",
+      "project_id": import.meta.env.VITE_GOOGLE_PROJECT_ID || "",
       "private_key_id": import.meta.env.VITE_GOOGLE_PRIVATE_KEY_ID || "",
       "private_key": import.meta.env.VITE_GOOGLE_PRIVATE_KEY || "",
       "client_email": import.meta.env.VITE_GOOGLE_CLIENT_EMAIL || "",
@@ -35,8 +35,16 @@ class Sheet3Service {
       "client_x509_cert_url": import.meta.env.VITE_GOOGLE_CLIENT_X509_CERT_URL || ""
     };
 
-    if (!credentials.private_key || !credentials.client_email) {
-      throw new Error('Google Cloud credentials not found. Please set environment variables.');
+    if (!credentials.private_key || !credentials.client_email || !credentials.project_id) {
+      console.warn('Google Cloud credentials not found. Sheet3 submission will be skipped.');
+      console.warn('To enable Sheet3 submission, set the following environment variables:');
+      console.warn('- VITE_GOOGLE_PROJECT_ID');
+      console.warn('- VITE_GOOGLE_PRIVATE_KEY');
+      console.warn('- VITE_GOOGLE_CLIENT_EMAIL');
+      console.warn('- VITE_GOOGLE_PRIVATE_KEY_ID');
+      console.warn('- VITE_GOOGLE_CLIENT_ID');
+      console.warn('- VITE_GOOGLE_CLIENT_X509_CERT_URL');
+      throw new Error('Google Cloud credentials not configured. Sheet3 submission disabled.');
     }
 
     const jwt = await this.createJWT(credentials);
@@ -138,7 +146,9 @@ class Sheet3Service {
     if (!this.initialized) {
       const initialized = await this.initialize();
       if (!initialized) {
-        throw new Error('Failed to initialize Sheet3 service');
+        console.warn('Sheet3 service not available. Results will not be submitted to Google Sheets.');
+        console.log('Assessment completed successfully, but data submission is disabled.');
+        return false; // Return false instead of throwing error
       }
     }
 
