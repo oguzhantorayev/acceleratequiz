@@ -50,7 +50,7 @@ console.log('\n📦 Validating package.json...');
 try {
   const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
   
-  const requiredDeps = ['react', 'react-dom', 'pyodide', 'duckdb', 'lucide-react', 'uuid'];
+  const requiredDeps = ['react', 'react-dom', 'pyodide', 'lucide-react', 'uuid'];
   const requiredDevDeps = ['@vitejs/plugin-react', 'tailwindcss', 'vite'];
   
   let depsValid = true;

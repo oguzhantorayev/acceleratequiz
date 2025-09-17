@@ -9,8 +9,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'pyodide': ['pyodide'],
-          'duckdb': ['duckdb']
+          'pyodide': ['pyodide']
         }
       }
     }
